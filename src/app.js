@@ -97,9 +97,10 @@ function updateFlatArt(solution) {
 function updateMechanismArt(solution) {
   const projectedPoints = solution.faces.flat(); const project3d = makeProjector(projectedPoints, (point) => [point[0] + point[2] * 0.68, point[1] - point[2] * 0.82]);
   solution.faces.forEach((face, index) => setPoints($(`panel-${index + 1}`), face.map(project3d)));
-  const hingePoints = [[solution.faces[3][2], solution.faces[0][1]], [solution.faces[0][2], solution.faces[1][1]], [solution.faces[1][2], solution.faces[2][1]], [solution.faces[2][2], solution.faces[3][1]]];
+  const hingePoints = solution.faces.map((face) => [face[0], face[1]]);
   hingePoints.forEach((pair, index) => setLine($(`hinge-${index + 1}`), project3d(pair[0]), project3d(pair[1])));
-  solution.faces.forEach((face, index) => { const centroid = face.reduce((sum, point) => [sum[0] + point[0] / 3, sum[1] + point[1] / 3, sum[2] + point[2] / 3], [0, 0, 0]); setText($(`panel-label-${index + 1}`), project3d(centroid), `F${index + 1}`); });
+  const labelOffsets = [[-12, -8], [12, 8], [-12, -8], [12, 8]];
+  solution.faces.forEach((face, index) => { const centroid = face.reduce((sum, point) => [sum[0] + point[0] / 3, sum[1] + point[1] / 3, sum[2] + point[2] / 3], [0, 0, 0]); const [offsetX, offsetY] = labelOffsets[index]; const position = project3d(centroid); setText($(`panel-label-${index + 1}`), [position[0] + offsetX, position[1] + offsetY], `F${index + 1}`); });
   $("mechanism-meta").textContent = `q=${radiansToDegrees(displayProject().qRad).toFixed(1)}° · branch=${state.project.branch > 0 ? "+1" : "−1"} · rot=${solution.residuals.rotationResidual.toExponential(1)} · pos=${solution.residuals.positionResidual.toExponential(1)} mm`;
 }
 

@@ -50,6 +50,7 @@ class FakeElement {
   select() { this.selected = true; }
 
   setAttribute(name, value) { this.attributes.set(name, String(value)); }
+  getAttribute(name) { return this.attributes.get(name) ?? null; }
   removeAttribute(name) { this.attributes.delete(name); }
 
   appendChild(child) {
@@ -94,6 +95,11 @@ class FakeDocument {
     return [];
   }
 
+  querySelector(selector) {
+    if (selector === "input[name=branch]:checked") return this.branchInputs.find((input) => input.checked) || null;
+    return null;
+  }
+
   createElement() { return new FakeElement(this); }
   createElementNS() { return new FakeElement(this); }
   addEventListener() {}
@@ -108,11 +114,38 @@ test("production render wiring resolves real SVG IDs for flat, 3D, and Save comp
 
   await import(`./app.js?dom-wiring=${Date.now()}`);
 
+  const assertNondegenerateHinges = () => {
+    for (let index = 1; index <= 4; index += 1) {
+      const hinge = document.getElementById(`hinge-${index}`);
+      assert.notDeepEqual(
+        [hinge.getAttribute("x1"), hinge.getAttribute("y1")],
+        [hinge.getAttribute("x2"), hinge.getAttribute("y2")],
+        `hinge-${index} must span a crease`
+      );
+    }
+  };
+
+  const qSlider = document.getElementById("q-slider");
+  qSlider.value = "77";
+  qSlider.dispatchEvent({ type: "input" });
+  assertNondegenerateHinges();
   document.stageTabs[0].click();
   assert.match(document.getElementById("flat-label-1").textContent, /^1 \/ /);
   document.stageTabs[1].click();
   assert.match(document.getElementById("panel-label-1").textContent, /^F1$/);
   assert.ok(document.getElementById("panel-1").attributes.has("points"));
+  const labelPoint = (index) => [Number(document.getElementById(`panel-label-${index}`).getAttribute("x")), Number(document.getElementById(`panel-label-${index}`).getAttribute("y"))];
+  const labelDistance = (first, second) => Math.hypot(labelPoint(first)[0] - labelPoint(second)[0], labelPoint(first)[1] - labelPoint(second)[1]);
+  assert.ok(labelDistance(1, 2) > 14, "F1/F2 labels need readable separation at q=77°");
+  assert.ok(labelDistance(3, 4) > 14, "F3/F4 labels need readable separation at q=77°");
+
+  const branchPlus = document.branchInputs.find((input) => input.value === "1");
+  const branchMinus = document.branchInputs.find((input) => input.value === "-1");
+  branchPlus.checked = false;
+  branchMinus.checked = true;
+  qSlider.value = "101";
+  branchMinus.dispatchEvent({ type: "change" });
+  assertNondegenerateHinges();
 
   document.getElementById("save-variant").click();
   document.getElementById("variant-name-input").value = "DOM wiring regression";
