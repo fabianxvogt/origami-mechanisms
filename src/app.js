@@ -89,17 +89,17 @@ function setText(element, point, text) { element.setAttribute("x", point[0].toFi
 function updateFlatArt(solution) {
   const flat = flatCoordinates(state.project); const project = makeProjector([...flat.E, flat.O], (point) => [point[0], point[1]]); const points = flat.E.map(project);
   setPoints($("flat-boundary"), points); setLine($("flat-scale-bar"), project([0, 0, 0]), project([10, 0, 0])); $("flat-mountain").innerHTML = ""; $("flat-valley").innerHTML = "";
-  flat.E.forEach((endpoint, index) => { const screen = project(endpoint); const label = solution.labels[index] || "flat"; const group = label === "mountain" ? $("flat-mountain") : label === "valley" ? $("flat-valley") : $("flat-mountain"); const line = document.createElementNS("http://www.w3.org/2000/svg", "line"); setLine(line, project(flat.O), screen); line.setAttribute("stroke", label === "flat" ? "#8e8a83" : "currentColor"); group.appendChild(line); setText($("flat-label-${index + 1}"), [screen[0] + 5, screen[1] - 5], `${index + 1} / ${label === "flat" ? "flat" : label === "mountain" ? "M" : "V"}`); });
+  flat.E.forEach((endpoint, index) => { const screen = project(endpoint); const label = solution.labels[index] || "flat"; const group = label === "mountain" ? $("flat-mountain") : label === "valley" ? $("flat-valley") : $("flat-mountain"); const line = document.createElementNS("http://www.w3.org/2000/svg", "line"); setLine(line, project(flat.O), screen); line.setAttribute("stroke", label === "flat" ? "#8e8a83" : "currentColor"); group.appendChild(line); setText($(`flat-label-${index + 1}`), [screen[0] + 5, screen[1] - 5], `${index + 1} / ${label === "flat" ? "flat" : label === "mountain" ? "M" : "V"}`); });
   const center = project(flat.O); setText($("flat-origin"), [center[0] + 6, center[1] - 6], "O");
   $("flat-meta").textContent = `α=${radiansToDegrees(state.project.alphaRad).toFixed(3)}° · L=${state.project.Lmm.toFixed(1)} mm · branch=${state.project.branch > 0 ? "+1" : "−1"}`;
 }
 
 function updateMechanismArt(solution) {
   const projectedPoints = solution.faces.flat(); const project3d = makeProjector(projectedPoints, (point) => [point[0] + point[2] * 0.68, point[1] - point[2] * 0.82]);
-  solution.faces.forEach((face, index) => setPoints($("panel-${index + 1}"), face.map(project3d)));
+  solution.faces.forEach((face, index) => setPoints($(`panel-${index + 1}`), face.map(project3d)));
   const hingePoints = [[solution.faces[3][2], solution.faces[0][1]], [solution.faces[0][2], solution.faces[1][1]], [solution.faces[1][2], solution.faces[2][1]], [solution.faces[2][2], solution.faces[3][1]]];
-  hingePoints.forEach((pair, index) => setLine($("hinge-${index + 1}"), project3d(pair[0]), project3d(pair[1])));
-  solution.faces.forEach((face, index) => { const centroid = face.reduce((sum, point) => [sum[0] + point[0] / 3, sum[1] + point[1] / 3, sum[2] + point[2] / 3], [0, 0, 0]); setText($("panel-label-${index + 1}"), project3d(centroid), `F${index + 1}`); });
+  hingePoints.forEach((pair, index) => setLine($(`hinge-${index + 1}`), project3d(pair[0]), project3d(pair[1])));
+  solution.faces.forEach((face, index) => { const centroid = face.reduce((sum, point) => [sum[0] + point[0] / 3, sum[1] + point[1] / 3, sum[2] + point[2] / 3], [0, 0, 0]); setText($(`panel-label-${index + 1}`), project3d(centroid), `F${index + 1}`); });
   $("mechanism-meta").textContent = `q=${radiansToDegrees(displayProject().qRad).toFixed(1)}° · branch=${state.project.branch > 0 ? "+1" : "−1"} · rot=${solution.residuals.rotationResidual.toExponential(1)} · pos=${solution.residuals.positionResidual.toExponential(1)} mm`;
 }
 

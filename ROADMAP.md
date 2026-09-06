@@ -13,7 +13,7 @@
 
 ## Next
 
-- Run the separate browser journey for invalid import retention, dirty cancel/confirm, timer reset/replacement, save/reopen, undo/redo, and both exports.
+- Re-run the isolated browser journey after the indexed SVG-ID repair for valid Save/render completion, invalid import retention, dirty cancel/confirm, timer reset/replacement, save/reopen, undo/redo, and both exports.
 - Run three representative human paper folds and record results before any release claim.
 
 ## Later
