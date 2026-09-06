@@ -9,11 +9,10 @@
 - [x] State sampled-collision and physical-fold limits directly in the interface.
 - [x] Repair the Save as variant cancel path so stopping preview immediately repaints the saved q/readout/version state.
 - [x] Replace the browser-blocking native variant-name prompt with the in-app accessible Save/Cancel field; verify save/reopen in the next browser journey.
-- [x] Publish the independently accepted ordinary source with separate private Site identity; keep Site version 1 undeployed until browser review.
+- [x] Publish the reviewed ordinary source/docs for product `c241d1d8937e552e5ae07f66ad63757f9fac33d5`; deploy existing Site version 4 after core and c241 display browser gates passed.
 
 ## Next
 
-- Re-run the isolated browser journey after the indexed SVG-ID repair for valid Save/render completion, invalid import retention, dirty cancel/confirm, timer reset/replacement, save/reopen, undo/redo, and both exports.
 - Run three representative human paper folds and record results before any release claim.
 
 ## Later
