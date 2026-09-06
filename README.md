@@ -20,7 +20,7 @@ Open `http://localhost:48112`. The app uses no network calls, account, or extern
 
 - Load an example, edit α/L/branch/q, scrub or play a preview capped at 160°, and see explicit invalid-state messages.
 - Undo/redo edits, with Escape/Cancel/Undo recovery around draft replacement.
-- Save variants locally, reopen them, and export/import versioned JSON with a 1 MB size check, malformed-file handling, unsupported-version handling, legacy-draft recovery, and blocked-storage fallback. Playback is preview-only and never dirties the saved q; a manual q edit does.
+- Save variants locally through an accessible in-app name field with explicit Save/Cancel controls, reopen them, and export/import versioned JSON with a 1 MB size check, malformed-file handling, unsupported-version handling, legacy-draft recovery, and blocked-storage fallback. Playback is preview-only and never dirties the saved q; a manual q edit does.
 - Export a contract-derived SVG with boundary/mountain/valley/labels layers, metadata, mm units, and a 10 mm scale bar; inspect a separate folded reference view plus three-step assembly guidance.
 
 ## Evidence limits

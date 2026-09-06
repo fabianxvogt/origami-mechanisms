@@ -8,6 +8,7 @@
 - [x] Add versioned JSON import/export with size validation and contract-derived SVG layers, metadata, and scale bar.
 - [x] State sampled-collision and physical-fold limits directly in the interface.
 - [x] Repair the Save as variant cancel path so stopping preview immediately repaints the saved q/readout/version state.
+- [x] Replace the browser-blocking native variant-name prompt with the in-app accessible Save/Cancel field; verify save/reopen in the next browser journey.
 - [x] Publish the independently accepted ordinary source with separate private Site identity; keep Site version 1 undeployed until browser review.
 
 ## Next
