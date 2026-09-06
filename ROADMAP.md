@@ -1,0 +1,25 @@
+# Roadmap
+
+## Now
+
+- [x] Build a coherent static browser workflow for the accepted single-vertex Miura-cell family.
+- [x] Add input, edit, undo/redo, motion scrub, invalid states, local variants, reopen, and recovery paths.
+- [x] Integrate α/L/branch/q Rodrigues geometry with closure, edge, hinge, normal-derived M/V, and sampled collision checks.
+- [x] Add versioned JSON import/export with size validation and contract-derived SVG layers, metadata, and scale bar.
+- [x] State sampled-collision and physical-fold limits directly in the interface.
+- [x] Repair the Save as variant cancel path so stopping preview immediately repaints the saved q/readout/version state.
+- [x] Publish the independently accepted ordinary source with separate private Site identity; keep Site version 1 undeployed until browser review.
+
+## Next
+
+- Run the separate browser journey for invalid import retention, dirty cancel/confirm, timer reset/replacement, save/reopen, undo/redo, and both exports.
+- Run three representative human paper folds and record results before any release claim.
+
+## Later
+
+- Add additional constrained families only with separate reviewed contracts.
+- Consider a print calibration page after the first paper checks.
+
+## Done
+
+- Dependency-free app source, local persistence, exports, recovery states, responsive layout, keyboard shortcuts, and reduced-motion fallback.
