@@ -1,3 +1,13 @@
+<!-- portfolio
+{
+  "title": "Foldline",
+  "topic": "Creative tools/Generative art",
+  "type": "product",
+  "description": "Explore a constrained family of folding mechanisms.",
+  "demo": "https://foldline-origami-mechanisms.fabian523417.chatgpt.site"
+}
+-->
+
 # Foldline — Origami Mechanisms
 
 Foldline is a browser-first explorer for one constrained folding family: a single-vertex Miura cell. It helps a maker tune α, L, branch, and q, inspect normal-derived mountain/valley assignments, scrub the rigid-hinge motion, save variants, reopen them, and export the same flat coordinates as an SVG in millimetres.
